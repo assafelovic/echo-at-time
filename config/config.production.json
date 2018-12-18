@@ -1,0 +1,26 @@
+{
+  "env": "production",
+  "http": {
+    "host": "127.0.0.1",
+    "port": 8080
+  },
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379
+  },
+  "logger": {
+    "sentry": {
+      "enabled": false,
+      "settings": {
+        "patchGlobal": true,
+        "level": "error",
+        "dsn": "https://sentry-dsn-here",
+        "tags": {}
+      }
+    },
+    "request": {
+      "enabled": true,
+      "mode": "tiny"
+    }
+  }
+}
