@@ -3,9 +3,8 @@
 process.env.originator = require('./package.json').name;
 process.env.version = require('./package.json').version;
 
+require('./database/redis');
 const logger = require('./logger');
-
-// LOADING NECESSARY PACKAGES & COMPONENTS
 const config = require('./config');
 const middlewares = require('./middlewares');
 const express = require('express');
@@ -25,16 +24,8 @@ if (config.get('logger:request:enabled') === true) {
   app.use(logger.request);
 }
 app.use(require('./routes'));
-app.use((error, req, res, _) => {
-  const { message } = error;
-  if (message.indexOf('JSON')) {
-    return res.status(400).send({ message });
-  }
 
-  logger.error(error);
-  res.status(500).send({ message });
-});
-
+// HANDLING UNHANDLED REQUEST ERRORS
 const {
   NotFoundError,
   BadRequestError,

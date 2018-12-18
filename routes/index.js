@@ -3,6 +3,6 @@
 const express = require('express');
 const router = express.Router();
 
-router.use('/echoes', require('./echoes'));
+router.use('/messages', require('./messages'));
 
 module.exports = router;

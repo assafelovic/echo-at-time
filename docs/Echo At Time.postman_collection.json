@@ -22,13 +22,14 @@
 					"raw": "{\n\t\"time\": \"2018-12-18 00:00:00\",\n\t\"message\": \"Hello World!\"\n}"
 				},
 				"url": {
-					"raw": "{{proto}}://{{host}}/echoes",
+					"raw": "{{proto}}://{{host}}/echoes/schedule",
 					"protocol": "{{proto}}",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"echoes"
+						"echoes",
+						"schedule"
 					]
 				}
 			},
