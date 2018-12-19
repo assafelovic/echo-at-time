@@ -2,20 +2,27 @@
 
 const moment = require('moment');
 
-const uuid = require('../../../utils/uuid');
+const logger = require('../../../logger');
+const { v4: uuid } = require('../../../utils/uuid');
 
 const storeMessage = require('./storeMessage');
 const pushToList = require('./pushToList');
+const registerList = require('./registerList');
 
-module.exports = async (time, message) => {
+module.exports = (time, message) => {
   const id = uuid();
   const date = moment(time).toDate().toISOString();
+  const list = date.split('T')[0];
 
-  const messageKey = 'message:' + id;
-  await storeMessage(messageKey, message);
+  (async () => {
+    try {
+      await storeMessage(id, [date, message].join(','));
+      await pushToList(list, [date, id].join(','));
+      await registerList(list);
+    } catch (error) {
+      logger.error(error);
+    }
+  })();
 
-  const messagesList = 'scheduledMessages:' + date.split('T')[0];
-  await pushToList(messagesList, date + '|' + id);
-
-  return { id, messageKey, messagesList, time, message };
+  return { id, date, message };
 };

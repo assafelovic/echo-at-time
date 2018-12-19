@@ -12,4 +12,4 @@ const listenPort = config.get('http:port');
 const httpServer = http.createServer(app);
 
 httpServer.listen(listenPort, listenHost,
-  () => logger.info('App listening at http://%s:%s', listenHost, listenPort));
+  () => logger.info('App listening to http requests'));

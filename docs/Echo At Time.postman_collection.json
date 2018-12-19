@@ -19,17 +19,48 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"time\": \"2018-12-18 00:00:00\",\n\t\"message\": \"Hello World!\"\n}"
+					"raw": "{\n  \"time\": \"2018-12-20T00:00:00.000Z\",\n  \"message\": \"Hello World!\"\n}"
 				},
 				"url": {
-					"raw": "{{proto}}://{{host}}/echoes/schedule",
+					"raw": "{{proto}}://{{host}}/messages/schedule",
 					"protocol": "{{proto}}",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"echoes",
+						"messages",
 						"schedule"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SCHEDULE MESSAGE (NOW)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"message\": \"Hello World! (NOW)\"\n}"
+				},
+				"url": {
+					"raw": "{{proto}}://{{host}}/messages/schedule/now",
+					"protocol": "{{proto}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"messages",
+						"schedule",
+						"now"
 					]
 				}
 			},

@@ -1,14 +1,14 @@
 'use strict';
 
-const logger = require('../logger');
-const config = require('../config');
+const logger = require('../../logger');
+const config = require('../../config');
 
-let redis = require('redis');
+let index = require('redis');
 if (config.get('env') === 'test') {
-  redis = require('redis-mock');
+  index = require('redis-mock');
 }
 
-const client = redis.createClient(config.get('db:redis'));
+const client = index.createClient(config.get('db:redis'));
 
 client.on('connect', () => {
   logger.info('Redis connected');

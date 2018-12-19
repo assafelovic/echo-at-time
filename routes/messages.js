@@ -18,4 +18,17 @@ router.post(
   }),
   MessagesController.schedule);
 
+router.post(
+  '/schedule/now',
+  validate({
+    body: {
+      message: Joi.string().min(1).max(1000).required()
+    }
+  }),
+  (req, _, next) => {
+    req.body.now = true;
+    next();
+  },
+  MessagesController.schedule);
+
 module.exports = router;

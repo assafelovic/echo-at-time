@@ -1,13 +1,21 @@
 'use strict';
 
-const { handleError } = require('../../errors');
+const moment = require('moment');
 
+const { NotAcceptableError, handleError } = require('../../errors');
 const scheduleMessage = require('./methods/scheduleMessage');
 
-module.exports = async (req, res) => {
+module.exports = (req, res) => {
   try {
-    const { time, message } = req.body;
-    const scheduledMessage = await scheduleMessage(time, message);
+    const { message, now } = req.body;
+    const time = now === true ? new Date() : req.body.time;
+
+    const date = moment(time).toDate().toISOString();
+    if (moment(date).isBefore(moment(), 'minutes')) {
+      throw new NotAcceptableError('Time provided in request is older than now');
+    }
+
+    const scheduledMessage = scheduleMessage(time, message);
     res.status(200).send(scheduledMessage);
   } catch (error) {
     handleError(error, res);

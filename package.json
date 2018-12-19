@@ -11,7 +11,10 @@
     "precommit": "npm run eslint-check && npm test",
     "prepush": "npm run eslint-check && npm test",
     "eslint-check": "./node_modules/.bin/eslint .",
-    "eslint-fix": "./node_modules/.bin/eslint . --fix"
+    "eslint-fix": "./node_modules/.bin/eslint . --fix",
+    "watch-task-echo-scheduled-messages": "node ./node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=local nodemon ./tasks/echo-scheduled-messages.js",
+    "echo-scheduled-messages": "node ./node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production node ./tasks/echo-scheduled-messages.js",
+    "task-echo-scheduled-messages": "forever stop task-echo-scheduled-messages; node ./node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production forever start --uid=task-echo-scheduled-messages --append ./tasks/echo-scheduled-messages.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +27,7 @@
   },
   "homepage": "https://github.com/num8er/echo-at-time#readme",
   "dependencies": {
+    "async": "^2.6.1",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "cross-env": "^5.2.0",

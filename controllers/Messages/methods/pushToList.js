@@ -2,12 +2,10 @@
 
 const db = require('../../../database/redis');
 
-module.exports = (messagesList, data) => {
+module.exports = (listName, data) => {
   return new Promise((resolve, reject) => {
-    db.lpush(messagesList, data, (error) => {
-      if (error) {
-        return reject(error.message);
-      }
+    db.rpush('scheduledMessages:' + listName, data, (error) => {
+      if (error) return reject(error);
       resolve();
     });
   });

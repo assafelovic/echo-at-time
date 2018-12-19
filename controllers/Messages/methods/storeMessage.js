@@ -2,12 +2,10 @@
 
 const db = require('../../../database/redis');
 
-module.exports = (messageKey, message) => {
+module.exports = (id, message) => {
   return new Promise((resolve, reject) => {
-    db.set(messageKey, message, (error) => {
-      if (error) {
-        return reject(error.message);
-      }
+    db.set('scheduledMessage:' + id, message, (error) => {
+      if (error) return reject(error);
       resolve();
     });
   });
